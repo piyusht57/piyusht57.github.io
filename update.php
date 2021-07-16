@@ -1,52 +1,62 @@
-<!doctype html>
+<?php
+include 'conn.php';
+$id = $_GET['id'];
+$query = "SELECT * FROM add1 WHERE id=$id";
+$result = mysqli_query($con, $query);
+
+if (mysqli_num_rows($result)) {
+    $n = mysqli_fetch_assoc($result);
+    $name = $n['name'];
+    $email = $n['email'];
+    $address = $n['address'];
+    $gender = $n['gender'];
+}
+if (isset($_POST['submit'])) {
+
+    $id = $_GET['id'];
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $address = $_POST['address'];
+    $gender = $_POST['gender'];
+
+    $q = "update add1 set id=$id,name ='$name',email='$email',address='$address',gender='$gender' where id=$id ";
+
+    $query = mysqli_query($con, $q);
+    header('location:read.php');
+}
+
+?>
+
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CRUD</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insert</title>
 </head>
-<center>
 
-    <body>
-        <div class="container mt-3">
-            <h2>Please enter data </h2>
-            <form class="form" action="" method="POST">
-                <?php
-                $servername = "localhost";
-                $username = "root";
-                $password = "";
-                $database = "ajaxcrud";
-                $con = mysqli_connect($servername, $username, $password, $database);
-                $id = $_GET['id'];
-                $sql = "SELECT * FROM testing WHERE id=$id";
-                $result = mysqli_query($con, $sql);
-                $result1 = mysqli_fetch_array($result);
+<body>
+    <center>
+        <div class="container">
+            <form action="" method="post">
+                <br><br>
 
-                if (isset($_POST['submit'])) {
-                    $name = $_POST['name'];
-                    $rollno = $_POST['rollno'];
-                    $address = $_POST['address'];
-                    $gender = $_POST['gender'];
-
-                    $sql = "UPDATE testing SET name = '$name',rollno='$rollno', address='$address',gender='$gender' WHERE id = '$id'";
-                    $result = mysqli_query($con, $sql);
-
-                    header("location:profile.php");
-                }
-                ?>
-                Name: <input type="text" name="name" id="name" value="<?php echo $result1['name']; ?>"><br><br>
-                Rollno: <input type="Number" name="rollno" id="rollno" value="<?php echo $result1['rollno']; ?>"><br><br>
-                Address:<input type="text" name="address" id="address" value="<?php echo $result1['address']; ?>"><br><br>
+                <h1>Update Operation</h1>
+                Name: <input type="text" name="name" value="<?php echo $name; ?>"><br><br>
+                Email: <input type="text" name="email" value="<?php echo $email; ?>"><br><br>
+                Address: <input type="text" name="address" value="<?php echo $address; ?>"><br><br>
                 Select Gender: Male <input type="radio" name="gender" value="Male">
                 feMale <input type="radio" name="gender" value="feMale">
                 other<input type="radio" name="gender" value="other"><br><br>
 
-                <br><br><br>
-                <button type="submit" name="submit">Update</button>
-            </form>
-    </body>
+                <button type="submit" name="submit">Submit</button>
 
-</center>
+            </form>
+        </div>
+    </center>
+</body>
 
 </html>
