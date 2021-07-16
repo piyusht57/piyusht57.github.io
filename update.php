@@ -16,7 +16,7 @@
                 $servername = "localhost";
                 $username = "root";
                 $password = "";
-                $database = "demo";
+                $database = "ajaxcrud";
                 $con = mysqli_connect($servername, $username, $password, $database);
                 $id = $_GET['id'];
                 $sql = "SELECT * FROM testing WHERE id=$id";
@@ -29,7 +29,7 @@
                     $address = $_POST['address'];
                     $gender = $_POST['gender'];
 
-                    $sql = "UPDATE testing SET name = '$name',rollno='$rollno', address='$address',gender=$gender WHERE id = $id";
+                    $sql = "UPDATE testing SET name = '$name',rollno='$rollno', address='$address',gender='$gender' WHERE id = '$id'";
                     $result = mysqli_query($con, $sql);
 
                     header("location:profile.php");
