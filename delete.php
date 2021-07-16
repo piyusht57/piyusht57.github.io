@@ -1,12 +1,9 @@
 <?php
-$servername="localhost";
-$username="root";
-$password="";
-$database="demo";
-$con=mysqli_connect($servername,$username,$password,$database);
+include 'conn.php';
+$id =$_GET['id'];
+$q ="DELETE FROM `add1` WHERE Sr.No=$id ";
 
-$id=$_GET['id'];
-$sql1="DELETE FROM testing WHERE id=$id";
-mysqli_query($con,$sql1);
-header("location:registration.php");
+mysqli_query($con,$q);
+header('location:read.php');
+
 ?>
